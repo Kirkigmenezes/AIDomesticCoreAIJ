@@ -1,5 +1,21 @@
 # 🧠🏠 AIDomesticCoreAIJ
 
+AI Kernel Whitepaper
+AIDomesticCoreAIJ defines a formal Artificial Intelligence Kernel intended to operate as critical
+digital infrastructure for domestic, enterprise, and sovereign AI systems. This document
+describes the architectural principles, execution model, security posture, and governance
+approach of the kernel.
+1. Motivation
+Modern AI systems are increasingly embedded into critical workflows. AIDomesticCoreAIJ
+addresses the need for a stable, auditable, and sovereign AI execution core that is independent
+of individual model vendors or cloud providers.
+2. Kernel Architecture
+The kernel separates policy from mechanism, enforces deterministic execution when required,
+and provides standardized interfaces for models, memory, tools, and agents.
+3. Governance & Compliance
+AIDomesticCoreAIJ is designed to support regulatory alignment, auditability, and jurisdictional
+control without constraining innovation.
+
 ## Domestic & Enterprise Artificial Intelligence Kernel
 
 ### Formal AI Core Specification & Reference Implementation
