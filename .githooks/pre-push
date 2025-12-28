@@ -1,0 +1,21 @@
+#!/bin/bash
+# Pre-push hook script
+# This runs before pushing to remote
+
+set -e
+
+echo "Running pre-push checks..."
+
+# Run tests
+echo "Running tests..."
+pytest tests/ -v --tb=short || exit 1
+
+# Check coverage
+echo "Checking coverage..."
+pytest tests/ --cov=aiplatform --cov=sdk --cov-report=term-missing || exit 1
+
+# Run security checks
+echo "Running security checks..."
+bandit -r aiplatform sdk || true
+
+echo "All pre-push checks passed!"

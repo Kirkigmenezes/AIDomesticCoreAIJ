@@ -1,0 +1,32 @@
+version: 1
+rules:
+  - base_branches:
+      - main
+      - develop
+    dependencies:
+      - dependency-type: all
+        update-types:
+          - minor
+          - major
+      - dependency-type: production
+        update-types:
+          - patch
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+    pull-request-branch-name:
+      template: "dependabot/{{ package-ecosystem }}/{{ dependency-name }}-{{ new-version }}"
+    allow:
+      - dependency-type: indirect
+    reviewers:
+      - "dependabot"
+    assignees:
+      - "dependabot"
+    labels:
+      - "dependencies"
+      - "python"
+    milestone: 1
+    open-pull-requests-limit: 10
+    rebase-strategy: "auto"
+    pull-requests:
+      enabled: true

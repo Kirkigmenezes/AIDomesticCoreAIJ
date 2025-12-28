@@ -1,0 +1,288 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "AIDomesticCoreAIJ API",
+    "version": "2.0.0",
+    "description": "Comprehensive AI Platform API with Quantum, Vision, Federated Learning, and GenAI capabilities",
+    "contact": {
+      "name": "API Support",
+      "email": "api-support@aiplatform.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.aiplatform.com",
+      "description": "Production"
+    },
+    {
+      "url": "https://staging.aiplatform.com",
+      "description": "Staging"
+    },
+    {
+      "url": "http://localhost:8000",
+      "description": "Development"
+    }
+  ],
+  "paths": {
+    "/api/v1/quantum/circuits": {
+      "get": {
+        "summary": "List quantum circuits",
+        "tags": ["Quantum"],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": { "type": "integer", "default": 20, "maximum": 100 }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": { "type": "integer", "default": 0 }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of circuits",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "circuits": { "type": "array" },
+                    "total": { "type": "integer" },
+                    "limit": { "type": "integer" },
+                    "offset": { "type": "integer" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create new quantum circuit",
+        "tags": ["Quantum"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "qubits": { "type": "integer" },
+                  "gates": { "type": "array" },
+                  "description": { "type": "string" }
+                },
+                "required": ["name", "qubits"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Circuit created" },
+          "400": { "description": "Invalid input" }
+        }
+      }
+    },
+    "/api/v1/quantum/execute": {
+      "post": {
+        "summary": "Execute quantum circuit",
+        "tags": ["Quantum"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "circuit_id": { "type": "string" },
+                  "shots": { "type": "integer", "default": 1024 },
+                  "backend": { "type": "string", "enum": ["simulator", "hardware"] }
+                },
+                "required": ["circuit_id"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": { "description": "Execution queued", "headers": { "X-Job-ID": { "schema": { "type": "string" } } } },
+          "400": { "description": "Invalid input" },
+          "429": { "description": "Rate limit exceeded" }
+        }
+      }
+    },
+    "/api/v1/vision/upload": {
+      "post": {
+        "summary": "Upload image for processing",
+        "tags": ["Vision"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "image": { "type": "string", "format": "binary" },
+                  "model": { "type": "string" },
+                  "options": { "type": "object" }
+                },
+                "required": ["image"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": { "description": "Image accepted for processing" },
+          "400": { "description": "Invalid image" },
+          "413": { "description": "Image too large" }
+        }
+      }
+    },
+    "/api/v1/vision/results/{vision_id}": {
+      "get": {
+        "summary": "Get vision processing results",
+        "tags": ["Vision"],
+        "parameters": [
+          {
+            "name": "vision_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Processing results" },
+          "202": { "description": "Still processing" },
+          "404": { "description": "Vision job not found" }
+        }
+      }
+    },
+    "/api/v1/federated/models": {
+      "get": {
+        "summary": "List federated models",
+        "tags": ["Federated"],
+        "responses": {
+          "200": { "description": "List of models" }
+        }
+      },
+      "post": {
+        "summary": "Create federated model",
+        "tags": ["Federated"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "architecture": { "type": "string" },
+                  "clients": { "type": "integer" },
+                  "rounds": { "type": "integer" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Model created" }
+        }
+      }
+    },
+    "/api/v1/federated/train": {
+      "post": {
+        "summary": "Start federated training",
+        "tags": ["Federated"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "model_id": { "type": "string" },
+                  "config": { "type": "object" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": { "description": "Training started" },
+          "400": { "description": "Invalid configuration" }
+        }
+      }
+    },
+    "/api/v1/genai/generate": {
+      "post": {
+        "summary": "Generate text using GenAI",
+        "tags": ["GenAI"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "prompt": { "type": "string" },
+                  "max_tokens": { "type": "integer" },
+                  "temperature": { "type": "number" },
+                  "model": { "type": "string" }
+                },
+                "required": ["prompt"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Generated text" },
+          "400": { "description": "Invalid prompt" }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      },
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key"
+      }
+    },
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "properties": {
+          "code": { "type": "string" },
+          "message": { "type": "string" },
+          "details": { "type": "object" }
+        }
+      },
+      "PaginatedResponse": {
+        "type": "object",
+        "properties": {
+          "data": { "type": "array" },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "total": { "type": "integer" },
+              "limit": { "type": "integer" },
+              "offset": { "type": "integer" },
+              "hasMore": { "type": "boolean" }
+            }
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    { "BearerAuth": [] },
+    { "ApiKeyAuth": [] }
+  ]
+}

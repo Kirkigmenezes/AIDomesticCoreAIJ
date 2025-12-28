@@ -1,0 +1,271 @@
+# Database configuration file
+database:
+  # Production database
+  production:
+    engine: postgresql
+    host: prod-db.example.com
+    port: 5432
+    database: aiplatform_prod
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    pool_size: 20
+    max_overflow: 40
+    pool_pre_ping: true
+    pool_recycle: 3600
+    echo: false
+    ssl_mode: require
+
+  # Development database
+  development:
+    engine: postgresql
+    host: localhost
+    port: 5432
+    database: aiplatform_dev
+    username: aiplatform
+    password: aiplatform_dev
+    pool_size: 5
+    max_overflow: 10
+    pool_pre_ping: true
+    pool_recycle: 3600
+    echo: true
+    ssl_mode: disable
+
+  # Testing database
+  testing:
+    engine: sqlite
+    path: ":memory:"
+    echo: false
+
+# Redis configuration
+redis:
+  production:
+    host: redis-prod.example.com
+    port: 6379
+    password: ${REDIS_PASSWORD}
+    db: 0
+    ssl: true
+    ssl_certfile: /etc/ssl/certs/redis.crt
+    ssl_keyfile: /etc/ssl/private/redis.key
+
+  development:
+    host: localhost
+    port: 6379
+    password: null
+    db: 0
+    ssl: false
+
+  testing:
+    host: localhost
+    port: 6379
+    password: null
+    db: 1
+    ssl: false
+
+# Cache configuration
+cache:
+  default: redis
+  backends:
+    redis:
+      backend: aiplatform.cache.RedisCache
+      location: redis://localhost:6379/0
+      options:
+        CLIENT_CLASS: redis.connection.HiredisParser
+        SOCKET_CONNECT_TIMEOUT: 5
+        SOCKET_TIMEOUT: 5
+        COMPRESSOR: aiplatform.cache.gzip_compressor
+        IGNORE_EXCEPTIONS: true
+
+    memory:
+      backend: aiplatform.cache.MemoryCache
+      location: unique-location-identifier
+      options:
+        MAX_ENTRIES: 1000
+
+# Logging configuration
+logging:
+  version: 1
+  disable_existing_loggers: false
+  
+  formatters:
+    standard:
+      format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    detailed:
+      format: '%(asctime)s - %(name)s - %(levelname)s - %(filename)s:%(lineno)d - %(funcName)s() - %(message)s'
+    json:
+      (): aiplatform.logging.JSONFormatter
+
+  handlers:
+    console:
+      class: logging.StreamHandler
+      formatter: standard
+      level: INFO
+      stream: ext://sys.stdout
+
+    file:
+      class: logging.handlers.RotatingFileHandler
+      formatter: detailed
+      level: DEBUG
+      filename: logs/aiplatform.log
+      maxBytes: 10485760
+      backupCount: 20
+
+    error_file:
+      class: logging.handlers.RotatingFileHandler
+      formatter: detailed
+      level: ERROR
+      filename: logs/errors.log
+      maxBytes: 10485760
+      backupCount: 10
+
+    syslog:
+      class: logging.handlers.SysLogHandler
+      formatter: standard
+      level: WARNING
+      address: /dev/log
+
+  loggers:
+    aiplatform:
+      level: DEBUG
+      handlers: [console, file]
+      propagate: false
+
+    aiplatform.quantum:
+      level: DEBUG
+      handlers: [console, file]
+      propagate: false
+
+    aiplatform.vision:
+      level: INFO
+      handlers: [console, file]
+      propagate: false
+
+    aiplatform.federated:
+      level: INFO
+      handlers: [console, file]
+      propagate: false
+
+    sqlalchemy:
+      level: WARNING
+      handlers: [console, error_file]
+      propagate: false
+
+    urllib3:
+      level: WARNING
+      handlers: [console]
+      propagate: false
+
+  root:
+    level: INFO
+    handlers: [console, file, error_file]
+
+# Security configuration
+security:
+  secret_key: ${SECRET_KEY}
+  allowed_hosts:
+    - localhost
+    - 127.0.0.1
+    - example.com
+    - www.example.com
+
+  cors:
+    allow_origins:
+      - http://localhost:3000
+      - http://localhost:8080
+      - https://example.com
+    allow_credentials: true
+    allow_methods: [GET, POST, PUT, DELETE, OPTIONS]
+    allow_headers: [Content-Type, Authorization]
+    max_age: 3600
+
+  csrf:
+    enabled: true
+    token_length: 32
+    excluded_paths: [/api/v1/webhook]
+
+  rate_limit:
+    enabled: true
+    default_limit: 100
+    window_size: 3600
+    storage: redis
+
+  session:
+    timeout: 1800
+    refresh_timeout: 86400
+    secure: true
+    httponly: true
+    samesite: strict
+
+# API configuration
+api:
+  version: v1
+  base_url: /api/v1
+  timeout: 30
+  max_request_size: 52428800
+  compression: true
+  compression_level: 6
+
+  rate_limiting:
+    enabled: true
+    anonymous: 100/hour
+    authenticated: 1000/hour
+
+  pagination:
+    default_limit: 20
+    max_limit: 100
+
+  versioning:
+    default_version: v1
+    allowed_versions: [v1, v2]
+
+# Feature flags
+features:
+  quantum_support: true
+  vision_module: true
+  federated_learning: true
+  generative_ai: true
+  multimodal_ai: true
+  experimental_features: false
+
+# Monitoring configuration
+monitoring:
+  enabled: true
+  metrics_port: 8001
+  health_check_interval: 30
+
+  prometheus:
+    enabled: true
+    port: 9090
+    path: /metrics
+
+  jaeger:
+    enabled: true
+    host: localhost
+    port: 6831
+    sampler:
+      type: const
+      param: 1
+
+  sentry:
+    enabled: true
+    dsn: ${SENTRY_DSN}
+    environment: ${ENVIRONMENT}
+    release: ${VERSION}
+    sample_rate: 0.1
+    traces_sample_rate: 0.1
+
+# Performance optimization
+performance:
+  worker_processes: 4
+  worker_connections: 1000
+  keepalive_timeout: 65
+  
+  caching:
+    enabled: true
+    ttl: 3600
+    strategies:
+      - name: quantum_results
+        ttl: 7200
+      - name: vision_features
+        ttl: 1800
+      - name: user_preferences
+        ttl: 86400

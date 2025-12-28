@@ -1,0 +1,55 @@
+# Auto detect text files and normalize line endings to LF
+* text=auto
+
+# Source code
+*.py text eol=lf
+*.js text eol=lf
+*.ts text eol=lf
+*.jsx text eol=lf
+*.tsx text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.xml text eol=lf
+*.md text eol=lf
+*.markdown text eol=lf
+*.sh text eol=lf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.mov binary
+*.mp4 binary
+*.mp3 binary
+*.gz binary
+*.zip binary
+*.7z binary
+*.ttf binary
+*.otf binary
+*.db binary
+*.sqlite binary
+
+# Git
+.gitattributes merge=union
+.gitignore merge=union
+
+# Documentation
+*.pdf binary
+*.doc binary
+*.docx binary
+
+# Archives
+*.rar binary
+*.tar binary
+*.tar.gz binary
+*.tar.bz2 binary
+
+# Certificates
+*.crt binary
+*.cert binary
+*.key binary
+*.pfx binary
+*.p12 binary

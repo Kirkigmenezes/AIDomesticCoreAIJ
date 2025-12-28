@@ -1,0 +1,43 @@
+{
+  "name": "aiplatform",
+  "version": "2.0.0",
+  "private": false,
+  "description": "Comprehensive AI Platform with Quantum Computing, Vision, and Federated Learning",
+  "author": "AI Platform Team",
+  "license": "MIT",
+  "homepage": "https://github.com/yourusername/AIDomesticCoreAIJ",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/AIDomesticCoreAIJ.git"
+  },
+  "keywords": [
+    "quantum",
+    "machine-learning",
+    "ai",
+    "vision",
+    "federated-learning",
+    "generative-ai",
+    "python"
+  ],
+  "scripts": {
+    "test": "pytest tests/ -v",
+    "test:cov": "pytest tests/ --cov=aiplatform --cov=sdk --cov-report=html",
+    "lint": "flake8 aiplatform sdk tests",
+    "format": "black aiplatform sdk tests examples",
+    "sort": "isort aiplatform sdk tests examples",
+    "type-check": "mypy aiplatform sdk --ignore-missing-imports",
+    "security": "bandit -r aiplatform sdk",
+    "docs": "cd docs && sphinx-build -b html . _build/html",
+    "install-dev": "pip install -r requirements.txt && pip install -r requirements-dev.txt",
+    "build": "python -m build",
+    "clean": "find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true"
+  },
+  "devDependencies": {
+    "pytest": "^7.4.0",
+    "pytest-cov": "^4.1.0",
+    "black": "^23.12.0",
+    "flake8": "^6.1.0",
+    "mypy": "^1.7.1",
+    "sphinx": "^7.2.6"
+  }
+}

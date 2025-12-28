@@ -1,0 +1,165 @@
+{
+  "datasets": [
+    {
+      "id": "quantum_benchmarks_001",
+      "name": "Quantum Circuit Benchmarks",
+      "description": "Comprehensive quantum circuit execution benchmarks across different circuit depths and qubit counts",
+      "version": "1.0.0",
+      "created_date": "2024-01-15",
+      "records": 5000,
+      "size_mb": 125.4,
+      "format": "jsonl",
+      "metadata": {
+        "qubit_range": [2, 20],
+        "circuit_depth_range": [1, 100],
+        "gates_tested": ["H", "CNOT", "RX", "RY", "RZ", "Toffoli"],
+        "simulators_tested": ["Qiskit", "Cirq", "ProjectQ"]
+      },
+      "sample_records": 10,
+      "schema": {
+        "circuit_id": "string",
+        "qubit_count": "integer",
+        "circuit_depth": "integer",
+        "gate_count": "integer",
+        "execution_time_ms": "float",
+        "fidelity": "float",
+        "simulator": "string",
+        "timestamp": "datetime"
+      }
+    },
+    {
+      "id": "vision_datasets_001",
+      "name": "Vision Model Training Data",
+      "description": "Large-scale vision dataset for training and evaluating computer vision models",
+      "version": "2.1.0",
+      "created_date": "2024-01-10",
+      "records": 250000,
+      "size_mb": 8500.0,
+      "format": "tfrecord",
+      "metadata": {
+        "image_formats": ["JPEG", "PNG", "WebP"],
+        "image_resolution_range": ["224x224", "512x512", "1024x1024"],
+        "classes": 1000,
+        "augmentation_applied": true,
+        "splits": {
+          "training": 0.7,
+          "validation": 0.15,
+          "test": 0.15
+        }
+      },
+      "statistics": {
+        "total_images": 250000,
+        "min_resolution": "224x224",
+        "max_resolution": "1024x1024",
+        "avg_file_size_kb": 35.2,
+        "class_distribution": "balanced"
+      }
+    },
+    {
+      "id": "federated_models_001",
+      "name": "Federated Learning Dataset",
+      "description": "Dataset designed for federated learning with client distributions",
+      "version": "1.5.0",
+      "created_date": "2024-01-08",
+      "records": 100000,
+      "size_mb": 450.2,
+      "format": "parquet",
+      "metadata": {
+        "num_clients": 100,
+        "records_per_client": 1000,
+        "data_heterogeneity": "non-iid",
+        "privacy_mechanism": "differential_privacy",
+        "epsilon": 8.0
+      },
+      "client_distribution": {
+        "small_clients": 40,
+        "medium_clients": 40,
+        "large_clients": 20,
+        "samples_per_small": 500,
+        "samples_per_medium": 1000,
+        "samples_per_large": 2500
+      }
+    },
+    {
+      "id": "genai_prompts_001",
+      "name": "GenAI Prompt Dataset",
+      "description": "Diverse prompt collection for generative AI model training",
+      "version": "3.2.0",
+      "created_date": "2024-01-20",
+      "records": 50000,
+      "size_mb": 85.5,
+      "format": "jsonl",
+      "metadata": {
+        "languages": ["en", "es", "fr", "de", "zh", "ja"],
+        "prompt_types": ["question", "instruction", "chat", "code", "creative"],
+        "avg_tokens": 45,
+        "max_tokens": 500
+      },
+      "quality_metrics": {
+        "avg_rating": 4.6,
+        "low_quality_samples": 250,
+        "high_quality_samples": 48500,
+        "human_reviewed": 0.95
+      }
+    },
+    {
+      "id": "time_series_001",
+      "name": "Time Series Metrics Dataset",
+      "description": "Historical time series data for performance metrics and anomaly detection",
+      "version": "1.0.0",
+      "created_date": "2024-01-01",
+      "records": 1000000,
+      "size_mb": 1250.0,
+      "format": "parquet",
+      "metadata": {
+        "time_range_days": 365,
+        "metrics_tracked": 50,
+        "sampling_interval_seconds": 60,
+        "data_retention_policy": "keep_all"
+      },
+      "metric_categories": {
+        "system": ["cpu", "memory", "disk", "network"],
+        "application": ["latency", "throughput", "errors", "cache_hit_rate"],
+        "database": ["query_time", "connections", "transactions", "locks"],
+        "business": ["revenue", "users", "requests", "conversions"]
+      }
+    },
+    {
+      "id": "nlp_corpus_001",
+      "name": "NLP Text Corpus",
+      "description": "Large multilingual text corpus for NLP model training",
+      "version": "2.0.0",
+      "created_date": "2024-01-05",
+      "records": 5000000,
+      "size_mb": 12500.0,
+      "format": "jsonl",
+      "metadata": {
+        "languages": 50,
+        "text_sources": ["news", "books", "web", "social_media", "academic"],
+        "total_tokens": 1500000000,
+        "avg_doc_length": 300
+      },
+      "content_breakdown": {
+        "news_articles": 1500000,
+        "books": 500000,
+        "web_pages": 2000000,
+        "social_media": 800000,
+        "academic_papers": 200000
+      }
+    }
+  ],
+  "total_datasets": 6,
+  "total_size_gb": 23.5,
+  "total_records": 6405000,
+  "last_updated": "2024-01-20T15:30:00Z",
+  "storage_location": "s3://aiplatform-datasets/",
+  "data_governance": {
+    "owner": "Data Science Team",
+    "pii_present": false,
+    "sensitive_data": false,
+    "access_control": "rbac",
+    "retention_period_days": 2555,
+    "backup_enabled": true,
+    "encryption": "AES-256"
+  }
+}

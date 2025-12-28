@@ -1,0 +1,68 @@
+# Development requirements
+# Install with: pip install -r requirements-dev.txt
+
+# Testing
+pytest==7.4.0
+pytest-cov==4.1.0
+pytest-xdist==3.3.0
+pytest-asyncio==0.21.1
+pytest-mock==3.11.1
+coverage==7.3.0
+
+# Code Quality
+black==23.12.0
+isort==5.13.2
+flake8==6.1.0
+flake8-docstrings==1.7.0
+flake8-bugbear==23.12.2
+pylint==3.0.0
+mypy==1.7.1
+bandit==1.7.5
+safety==2.3.5
+
+# Type Checking
+types-requests==2.31.0
+types-pyyaml==6.0.12
+types-redis==4.6.0
+
+# Documentation
+Sphinx==7.2.6
+sphinx-rtd-theme==2.0.0
+sphinx-autodoc-typehints==1.25.2
+sphinx-intl==2.1.0
+
+# Development
+ipython==8.17.2
+jupyter==1.0.0
+jupyterlab==4.0.8
+notebook==7.0.6
+ipdb==0.13.13
+python-dotenv==1.0.0
+watchdog==3.0.0
+
+# Code Formatting
+autopep8==2.0.4
+yapf==0.40.2
+
+# Performance Analysis
+memory-profiler==0.61.0
+line-profiler==4.1.1
+scalene==1.5.40
+
+# Pre-commit
+pre-commit==3.5.0
+
+# Building
+build==1.0.3
+wheel==0.42.0
+twine==4.0.2
+
+# Package Management
+pip-tools==7.3.0
+pip-audit==2.6.1
+poetry==1.7.0
+
+# Additional utilities
+tqdm==4.66.1
+colorama==0.4.6
+click==8.1.7

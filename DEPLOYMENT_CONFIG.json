@@ -1,0 +1,151 @@
+{
+  "deployment_config": {
+    "production": {
+      "region": "us-east-1",
+      "availability_zones": ["us-east-1a", "us-east-1b", "us-east-1c"],
+      "instances": {
+        "api_servers": {
+          "count": 5,
+          "instance_type": "t3.xlarge",
+          "auto_scaling": {
+            "enabled": true,
+            "min": 3,
+            "max": 10,
+            "target_cpu_percent": 70
+          }
+        },
+        "worker_nodes": {
+          "count": 3,
+          "instance_type": "c5.2xlarge",
+          "auto_scaling": {
+            "enabled": true,
+            "min": 2,
+            "max": 8,
+            "target_cpu_percent": 75
+          }
+        }
+      },
+      "database": {
+        "type": "RDS PostgreSQL",
+        "instance_class": "db.r5.xlarge",
+        "multi_az": true,
+        "backup_retention_days": 30,
+        "backup_window": "03:00-04:00",
+        "maintenance_window": "sun:04:00-sun:05:00"
+      },
+      "cache": {
+        "type": "Redis",
+        "instance_type": "cache.r5.large",
+        "multi_az": true,
+        "automatic_failover": true
+      },
+      "load_balancer": {
+        "type": "Application Load Balancer",
+        "cross_zone": true,
+        "health_check_path": "/health",
+        "health_check_interval": 30,
+        "deregistration_delay": 30
+      },
+      "cdn": {
+        "enabled": true,
+        "provider": "CloudFront",
+        "ttl_seconds": 86400,
+        "compress": true
+      },
+      "monitoring": {
+        "cloudwatch_enabled": true,
+        "datadog_enabled": true,
+        "log_retention_days": 30
+      }
+    },
+    "staging": {
+      "region": "us-east-1",
+      "instances": {
+        "api_servers": {
+          "count": 2,
+          "instance_type": "t3.large"
+        },
+        "worker_nodes": {
+          "count": 1,
+          "instance_type": "c5.large"
+        }
+      },
+      "database": {
+        "type": "RDS PostgreSQL",
+        "instance_class": "db.t3.medium",
+        "multi_az": false
+      }
+    },
+    "development": {
+      "type": "local",
+      "database": "PostgreSQL local",
+      "cache": "Redis local",
+      "monitoring": "local metrics"
+    }
+  },
+  "scaling_policies": [
+    {
+      "name": "scale_up_cpu",
+      "metric": "CPUUtilization",
+      "threshold": 75,
+      "comparison": "GreaterThanOrEqualToThreshold",
+      "evaluation_periods": 2,
+      "period_seconds": 300,
+      "adjustment_percent": 20
+    },
+    {
+      "name": "scale_down_cpu",
+      "metric": "CPUUtilization",
+      "threshold": 30,
+      "comparison": "LessThanThreshold",
+      "evaluation_periods": 5,
+      "period_seconds": 300,
+      "adjustment_percent": -20
+    },
+    {
+      "name": "scale_up_memory",
+      "metric": "MemoryUtilization",
+      "threshold": 80,
+      "comparison": "GreaterThanOrEqualToThreshold",
+      "evaluation_periods": 3,
+      "period_seconds": 300,
+      "adjustment_count": 1
+    }
+  ],
+  "disaster_recovery": {
+    "rto_minutes": 15,
+    "rpo_minutes": 5,
+    "backup_strategy": "continuous",
+    "replication": {
+      "enabled": true,
+      "target_region": "us-west-1",
+      "replication_lag_seconds": 10
+    },
+    "failover": {
+      "automatic": true,
+      "promotion_delay_seconds": 30
+    }
+  },
+  "security": {
+    "ssl_tls": {
+      "enabled": true,
+      "min_version": "TLSv1.2",
+      "certificate_provider": "Let's Encrypt"
+    },
+    "firewall": {
+      "enabled": true,
+      "waf_enabled": true,
+      "ddos_protection": true
+    },
+    "encryption": {
+      "at_rest": true,
+      "in_transit": true,
+      "key_rotation_days": 90
+    },
+    "authentication": {
+      "mfa_enabled": true,
+      "ip_whitelist": [],
+      "rate_limiting": true
+    }
+  }
+}

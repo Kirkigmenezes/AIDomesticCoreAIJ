@@ -1,0 +1,68 @@
+{
+  "environments": {
+    "development": {
+      "description": "Local development environment",
+      "variables": {
+        "DEBUG": "true",
+        "LOG_LEVEL": "DEBUG",
+        "DATABASE_URL": "postgresql://localhost/aiplatform_dev",
+        "REDIS_URL": "redis://localhost:6379/0",
+        "API_TIMEOUT": "30",
+        "MAX_WORKERS": "4"
+      }
+    },
+    "testing": {
+      "description": "Testing environment",
+      "variables": {
+        "DEBUG": "true",
+        "LOG_LEVEL": "INFO",
+        "DATABASE_URL": "postgresql://test:test@localhost/aiplatform_test",
+        "REDIS_URL": "redis://localhost:6379/1",
+        "API_TIMEOUT": "10",
+        "MAX_WORKERS": "2",
+        "COVERAGE_THRESHOLD": "80"
+      }
+    },
+    "staging": {
+      "description": "Staging environment",
+      "variables": {
+        "DEBUG": "false",
+        "LOG_LEVEL": "INFO",
+        "DATABASE_URL": "${STAGING_DATABASE_URL}",
+        "REDIS_URL": "${STAGING_REDIS_URL}",
+        "API_TIMEOUT": "30",
+        "MAX_WORKERS": "8",
+        "ENABLE_MONITORING": "true"
+      }
+    },
+    "production": {
+      "description": "Production environment",
+      "variables": {
+        "DEBUG": "false",
+        "LOG_LEVEL": "WARNING",
+        "DATABASE_URL": "${PROD_DATABASE_URL}",
+        "REDIS_URL": "${PROD_REDIS_URL}",
+        "API_TIMEOUT": "60",
+        "MAX_WORKERS": "16",
+        "ENABLE_MONITORING": "true",
+        "ENABLE_SECURITY": "true"
+      }
+    }
+  },
+  "secrets": [
+    "DATABASE_PASSWORD",
+    "REDIS_PASSWORD",
+    "API_KEY",
+    "JWT_SECRET",
+    "ENCRYPTION_KEY",
+    "AWS_SECRET_ACCESS_KEY",
+    "OPENAI_API_KEY"
+  ],
+  "deployment": {
+    "strategy": "blue-green",
+    "healthcheck": "/api/health",
+    "timeout": 300,
+    "max_retries": 3,
+    "rollback_on_failure": true
+  }
+}

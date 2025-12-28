@@ -1,0 +1,88 @@
+{
+  "issues": [
+    {
+      "id": "ISSUE-001",
+      "title": "Quantum circuit optimization needed",
+      "status": "open",
+      "priority": "high",
+      "component": "quantum",
+      "created_at": "2025-12-01T10:00:00Z",
+      "description": "Current quantum circuits need optimization for better performance",
+      "labels": ["enhancement", "quantum", "performance"]
+    },
+    {
+      "id": "ISSUE-002",
+      "title": "Vision model accuracy improvement",
+      "status": "in_progress",
+      "priority": "high",
+      "component": "vision",
+      "created_at": "2025-12-02T11:00:00Z",
+      "description": "Improve accuracy of vision models for edge cases",
+      "labels": ["enhancement", "vision", "ml"]
+    },
+    {
+      "id": "ISSUE-003",
+      "title": "Federated learning convergence issue",
+      "status": "open",
+      "priority": "medium",
+      "component": "federated",
+      "created_at": "2025-12-03T09:00:00Z",
+      "description": "Convergence is slower than expected in federated setup",
+      "labels": ["bug", "federated", "performance"]
+    },
+    {
+      "id": "ISSUE-004",
+      "title": "Add multilingual support",
+      "status": "open",
+      "priority": "medium",
+      "component": "genai",
+      "created_at": "2025-12-04T14:00:00Z",
+      "description": "Extend language support beyond current implementation",
+      "labels": ["feature", "genai", "i18n"]
+    },
+    {
+      "id": "ISSUE-005",
+      "title": "Documentation update needed",
+      "status": "backlog",
+      "priority": "low",
+      "component": "docs",
+      "created_at": "2025-12-04T15:00:00Z",
+      "description": "Update API documentation for recent changes",
+      "labels": ["documentation", "docs"]
+    }
+  ],
+  "pull_requests": [
+    {
+      "id": "PR-001",
+      "title": "feat: Add quantum circuit caching",
+      "status": "open",
+      "priority": "high",
+      "created_at": "2025-12-04T12:00:00Z",
+      "author": "developer",
+      "branch": "feature/quantum-caching",
+      "target_branch": "develop",
+      "description": "Implement caching for quantum circuits to improve performance"
+    },
+    {
+      "id": "PR-002",
+      "title": "fix: Resolve vision model memory leak",
+      "status": "under_review",
+      "priority": "high",
+      "created_at": "2025-12-03T10:00:00Z",
+      "author": "developer",
+      "branch": "fix/vision-memory",
+      "target_branch": "main",
+      "description": "Fix memory leak in vision model processing pipeline"
+    }
+  ],
+  "statistics": {
+    "total_issues": 5,
+    "open_issues": 3,
+    "in_progress": 1,
+    "closed_issues": 1,
+    "total_prs": 2,
+    "open_prs": 1,
+    "under_review": 1,
+    "average_resolution_time_days": 3.5
+  }
+}

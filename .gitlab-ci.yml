@@ -1,0 +1,172 @@
+stages:
+  - lint
+  - test
+  - build
+  - security
+  - deploy
+
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  DOCKER_DRIVER: overlay2
+
+cache:
+  paths:
+    - .cache/pip
+    - venv/
+
+before_script:
+  - python --version
+  - pip install --upgrade pip setuptools wheel
+  - pip install -r requirements.txt
+
+lint:python:
+  stage: lint
+  image: python:3.11
+  script:
+    - pip install flake8 black isort
+    - echo "Running flake8..."
+    - flake8 aiplatform sdk tests --count --select=E9,F63,F7,F82 --show-source --statistics
+    - flake8 aiplatform sdk tests --count --exit-zero --max-complexity=10 --max-line-length=100 --statistics
+    - echo "Running black..."
+    - black --check aiplatform sdk tests examples
+    - echo "Running isort..."
+    - isort --check-only aiplatform sdk tests examples
+  only:
+    - merge_requests
+    - main
+    - develop
+
+test:python39:
+  stage: test
+  image: python:3.9
+  script:
+    - pip install pytest pytest-cov pytest-xdist mypy
+    - pytest tests/ -v --cov=aiplatform --cov=sdk --cov-report=term --cov-report=html
+    - mypy aiplatform sdk --ignore-missing-imports || true
+  artifacts:
+    paths:
+      - htmlcov/
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage.xml
+  coverage: '/TOTAL.*\s+(\d+%)$/'
+
+test:python310:
+  stage: test
+  image: python:3.10
+  script:
+    - pip install pytest pytest-cov pytest-xdist
+    - pytest tests/ -v --cov=aiplatform --cov=sdk --cov-report=term
+
+test:python311:
+  stage: test
+  image: python:3.11
+  script:
+    - pip install pytest pytest-cov pytest-xdist
+    - pytest tests/ -v --cov=aiplatform --cov=sdk --cov-report=term
+
+test:python312:
+  stage: test
+  image: python:3.12
+  script:
+    - pip install pytest pytest-cov pytest-xdist
+    - pytest tests/ -v --cov=aiplatform --cov=sdk --cov-report=term
+
+security:bandit:
+  stage: security
+  image: python:3.11
+  script:
+    - pip install bandit safety
+    - echo "Running Bandit security scan..."
+    - bandit -r aiplatform sdk -f json -o bandit-report.json || true
+    - echo "Checking dependencies..."
+    - safety check --json > safety-report.json || true
+  artifacts:
+    paths:
+      - bandit-report.json
+      - safety-report.json
+    expire_in: 1 week
+  allow_failure: true
+
+sast:
+  stage: security
+  image: returntocorp/semgrep
+  script:
+    - semgrep --config=p/security-audit --config=p/python --json --output=semgrep-report.json . || true
+  artifacts:
+    paths:
+      - semgrep-report.json
+    reports:
+      sast: semgrep-report.json
+    expire_in: 1 week
+  allow_failure: true
+
+build:package:
+  stage: build
+  image: python:3.11
+  script:
+    - pip install build wheel twine
+    - python -m build
+    - twine check dist/*
+  artifacts:
+    paths:
+      - dist/
+    expire_in: 1 week
+  only:
+    - tags
+    - main
+
+build:docker:
+  stage: build
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA .
+    - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA $CI_REGISTRY_IMAGE:latest
+  only:
+    - main
+    - tags
+  allow_failure: true
+
+deploy:staging:
+  stage: deploy
+  image: python:3.11
+  script:
+    - echo "Deploying to staging environment..."
+    - pip install -r requirements.txt
+    - python setup.py develop
+  environment:
+    name: staging
+    url: https://staging.example.com
+  only:
+    - develop
+  when: manual
+
+deploy:production:
+  stage: deploy
+  image: python:3.11
+  script:
+    - echo "Deploying to production..."
+    - pip install -r requirements.txt
+  environment:
+    name: production
+    url: https://example.com
+  only:
+    - main
+    - tags
+  when: manual
+
+pages:
+  stage: deploy
+  image: python:3.11
+  script:
+    - pip install sphinx sphinx-rtd-theme
+    - cd docs
+    - sphinx-build -b html . ../public || true
+  artifacts:
+    paths:
+      - public
+  only:
+    - main

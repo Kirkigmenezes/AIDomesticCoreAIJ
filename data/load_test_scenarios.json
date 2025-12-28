@@ -1,0 +1,240 @@
+{
+  "load_test_scenarios": [
+    {
+      "scenario_name": "normal_operation",
+      "description": "Simulate normal production load",
+      "duration_seconds": 300,
+      "stages": [
+        {
+          "duration_seconds": 60,
+          "target_rps": 100,
+          "ramp_up_type": "linear"
+        },
+        {
+          "duration_seconds": 180,
+          "target_rps": 500,
+          "ramp_up_type": "linear"
+        },
+        {
+          "duration_seconds": 60,
+          "target_rps": 100,
+          "ramp_up_type": "linear"
+        }
+      ],
+      "expected_metrics": {
+        "p50_latency_ms": 45,
+        "p95_latency_ms": 120,
+        "p99_latency_ms": 250,
+        "error_rate": 0.001,
+        "success_rate": 0.999
+      }
+    },
+    {
+      "scenario_name": "peak_load",
+      "description": "Simulate peak production load with spikes",
+      "duration_seconds": 600,
+      "stages": [
+        {
+          "duration_seconds": 120,
+          "target_rps": 500,
+          "ramp_up_type": "exponential"
+        },
+        {
+          "duration_seconds": 180,
+          "target_rps": 3000,
+          "ramp_up_type": "linear"
+        },
+        {
+          "duration_seconds": 180,
+          "target_rps": 3000,
+          "ramp_up_type": "constant"
+        },
+        {
+          "duration_seconds": 120,
+          "target_rps": 500,
+          "ramp_up_type": "linear"
+        }
+      ],
+      "expected_metrics": {
+        "p50_latency_ms": 150,
+        "p95_latency_ms": 500,
+        "p99_latency_ms": 1000,
+        "error_rate": 0.01,
+        "success_rate": 0.99
+      }
+    },
+    {
+      "scenario_name": "stress_test",
+      "description": "Push system to breaking point",
+      "duration_seconds": 900,
+      "stages": [
+        {
+          "duration_seconds": 300,
+          "target_rps": 5000,
+          "ramp_up_type": "exponential"
+        },
+        {
+          "duration_seconds": 300,
+          "target_rps": 10000,
+          "ramp_up_type": "linear"
+        },
+        {
+          "duration_seconds": 300,
+          "target_rps": 5000,
+          "ramp_up_type": "linear"
+        }
+      ],
+      "expected_metrics": {
+        "p50_latency_ms": 500,
+        "p95_latency_ms": 2000,
+        "p99_latency_ms": 5000,
+        "error_rate": 0.05,
+        "success_rate": 0.95,
+        "timeout_count": 500
+      }
+    },
+    {
+      "scenario_name": "spike_test",
+      "description": "Sudden traffic spikes",
+      "duration_seconds": 300,
+      "stages": [
+        {
+          "duration_seconds": 60,
+          "target_rps": 100,
+          "ramp_up_type": "constant"
+        },
+        {
+          "duration_seconds": 10,
+          "target_rps": 5000,
+          "ramp_up_type": "instant"
+        },
+        {
+          "duration_seconds": 120,
+          "target_rps": 5000,
+          "ramp_up_type": "constant"
+        },
+        {
+          "duration_seconds": 10,
+          "target_rps": 100,
+          "ramp_up_type": "instant"
+        },
+        {
+          "duration_seconds": 100,
+          "target_rps": 100,
+          "ramp_up_type": "constant"
+        }
+      ],
+      "expected_metrics": {
+        "spike_recovery_seconds": 30,
+        "max_queue_length": 5000,
+        "error_rate_during_spike": 0.1
+      }
+    },
+    {
+      "scenario_name": "endurance_test",
+      "description": "Long-running load test for memory leaks",
+      "duration_seconds": 86400,
+      "stages": [
+        {
+          "duration_seconds": 86400,
+          "target_rps": 200,
+          "ramp_up_type": "constant"
+        }
+      ],
+      "memory_monitoring": {
+        "enabled": true,
+        "check_interval_seconds": 300,
+        "max_memory_growth_mb": 100
+      },
+      "expected_metrics": {
+        "p50_latency_ms": 45,
+        "memory_growth_rate_mb_per_hour": 0.5,
+        "cumulative_requests": 17280000
+      }
+    },
+    {
+      "scenario_name": "circuit_breaker_test",
+      "description": "Test circuit breaker and retry logic",
+      "duration_seconds": 600,
+      "fault_injection": {
+        "enabled": true,
+        "failure_rate": 0.2,
+        "failure_duration_seconds": 30,
+        "recovery_delay_seconds": 5
+      },
+      "expected_metrics": {
+        "circuit_breaker_trips": 6,
+        "successful_retries": 0.95,
+        "cascade_failure_prevention": true
+      }
+    }
+  ],
+  "endpoints_to_test": [
+    {
+      "endpoint": "/api/v1/health",
+      "method": "GET",
+      "weight": 0.05,
+      "expected_status": 200
+    },
+    {
+      "endpoint": "/api/v1/quantum/circuits",
+      "method": "GET",
+      "weight": 0.15,
+      "expected_status": 200
+    },
+    {
+      "endpoint": "/api/v1/quantum/circuits",
+      "method": "POST",
+      "weight": 0.10,
+      "expected_status": 201
+    },
+    {
+      "endpoint": "/api/v1/vision/upload",
+      "method": "POST",
+      "weight": 0.20,
+      "expected_status": 202
+    },
+    {
+      "endpoint": "/api/v1/vision/results/{vision_id}",
+      "method": "GET",
+      "weight": 0.15,
+      "expected_status": 200
+    },
+    {
+      "endpoint": "/api/v1/federated/models",
+      "method": "GET",
+      "weight": 0.10,
+      "expected_status": 200
+    },
+    {
+      "endpoint": "/api/v1/federated/train",
+      "method": "POST",
+      "weight": 0.10,
+      "expected_status": 202
+    },
+    {
+      "endpoint": "/api/v1/genai/generate",
+      "method": "POST",
+      "weight": 0.15,
+      "expected_status": 200
+    }
+  ],
+  "metrics_to_track": [
+    "response_time_min",
+    "response_time_max",
+    "response_time_p50",
+    "response_time_p75",
+    "response_time_p90",
+    "response_time_p95",
+    "response_time_p99",
+    "response_time_p999",
+    "requests_per_second",
+    "errors_total",
+    "errors_by_status_code",
+    "connection_duration_min",
+    "connection_duration_max",
+    "connection_duration_avg",
+    "data_received_per_sec",
+    "data_sent_per_sec"
+  ]
+}

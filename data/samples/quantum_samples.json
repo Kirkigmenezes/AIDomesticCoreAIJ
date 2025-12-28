@@ -1,0 +1,52 @@
+[
+  {
+    "sample_id": 1,
+    "timestamp": "2025-12-01T10:30:00Z",
+    "qubit_state": [0.707, 0.707],
+    "circuit_depth": 3,
+    "gate_fidelity": 0.999,
+    "measurement_probability": 0.98,
+    "execution_time_ms": 0.45,
+    "error_rate": 0.001
+  },
+  {
+    "sample_id": 2,
+    "timestamp": "2025-12-01T10:31:00Z",
+    "qubit_state": [0.5, 0.866],
+    "circuit_depth": 4,
+    "gate_fidelity": 0.998,
+    "measurement_probability": 0.97,
+    "execution_time_ms": 0.52,
+    "error_rate": 0.0015
+  },
+  {
+    "sample_id": 3,
+    "timestamp": "2025-12-01T10:32:00Z",
+    "qubit_state": [1.0, 0.0],
+    "circuit_depth": 2,
+    "gate_fidelity": 1.0,
+    "measurement_probability": 0.99,
+    "execution_time_ms": 0.38,
+    "error_rate": 0.0
+  },
+  {
+    "sample_id": 4,
+    "timestamp": "2025-12-01T10:33:00Z",
+    "qubit_state": [0.866, 0.5],
+    "circuit_depth": 5,
+    "gate_fidelity": 0.997,
+    "measurement_probability": 0.96,
+    "execution_time_ms": 0.61,
+    "error_rate": 0.002
+  },
+  {
+    "sample_id": 5,
+    "timestamp": "2025-12-01T10:34:00Z",
+    "qubit_state": [0.0, 1.0],
+    "circuit_depth": 3,
+    "gate_fidelity": 0.999,
+    "measurement_probability": 0.985,
+    "execution_time_ms": 0.48,
+    "error_rate": 0.0008
+  }
+]

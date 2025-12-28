@@ -1,0 +1,108 @@
+{
+  "datasets": [
+    {
+      "id": "dataset_001",
+      "name": "Quantum Training Dataset",
+      "version": "1.0.0",
+      "description": "Sample quantum computing dataset for AI training",
+      "type": "quantum",
+      "source": "quantum_simulator",
+      "size_mb": 1024,
+      "format": "json",
+      "created_at": "2025-12-01T10:30:00Z",
+      "samples": 10000,
+      "features": [
+        "qubit_state",
+        "circuit_depth",
+        "gate_fidelity",
+        "measurement_probability"
+      ],
+      "metadata": {
+        "algorithm": "VQE",
+        "n_qubits": 5,
+        "repetitions": 100,
+        "backend": "simulator"
+      }
+    },
+    {
+      "id": "dataset_002",
+      "name": "Vision AI Dataset",
+      "version": "1.0.0",
+      "description": "Multi-modal vision dataset for computer vision tasks",
+      "type": "vision",
+      "source": "vision_lab",
+      "size_mb": 5120,
+      "format": "parquet",
+      "created_at": "2025-12-02T15:45:00Z",
+      "samples": 50000,
+      "features": [
+        "image_path",
+        "image_dimensions",
+        "color_space",
+        "metadata_tags"
+      ],
+      "metadata": {
+        "image_formats": ["jpg", "png", "webp"],
+        "min_resolution": "640x480",
+        "max_resolution": "4096x4096",
+        "categories": 100
+      }
+    },
+    {
+      "id": "dataset_003",
+      "name": "Federated Learning Dataset",
+      "version": "2.0.0",
+      "description": "Distributed dataset for federated learning experiments",
+      "type": "federated",
+      "source": "federated_network",
+      "size_mb": 2048,
+      "format": "csv",
+      "created_at": "2025-12-03T09:20:00Z",
+      "samples": 100000,
+      "features": [
+        "feature_1",
+        "feature_2",
+        "feature_3",
+        "target_label"
+      ],
+      "metadata": {
+        "n_clients": 10,
+        "samples_per_client": 10000,
+        "privacy_mechanism": "differential_privacy",
+        "epsilon": 0.5
+      }
+    },
+    {
+      "id": "dataset_004",
+      "name": "Multimodal AI Dataset",
+      "version": "1.5.0",
+      "description": "Combined text, image, and audio dataset",
+      "type": "multimodal",
+      "source": "multimodal_lab",
+      "size_mb": 8192,
+      "format": "json",
+      "created_at": "2025-12-04T14:00:00Z",
+      "samples": 25000,
+      "features": [
+        "text_content",
+        "image_url",
+        "audio_url",
+        "metadata"
+      ],
+      "metadata": {
+        "languages": ["en", "es", "fr", "de", "zh"],
+        "image_count": 25000,
+        "audio_duration_hours": 500,
+        "text_avg_length": 256
+      }
+    }
+  ],
+  "statistics": {
+    "total_datasets": 4,
+    "total_samples": 185000,
+    "total_size_gb": 16.384,
+    "average_samples": 46250,
+    "data_quality_score": 0.95,
+    "last_updated": "2025-12-04T14:00:00Z"
+  }
+}

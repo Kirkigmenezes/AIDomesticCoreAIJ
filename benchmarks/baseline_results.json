@@ -1,0 +1,102 @@
+{
+  "benchmarks": [
+    {
+      "name": "quantum_circuit_execution",
+      "module": "aiplatform.quantum",
+      "description": "Benchmark for quantum circuit execution",
+      "timestamp": "2025-12-01T10:00:00Z",
+      "results": {
+        "mean_ms": 45.23,
+        "stddev_ms": 2.14,
+        "min_ms": 41.5,
+        "max_ms": 52.3,
+        "iterations": 1000,
+        "ops_per_sec": 22.11
+      },
+      "hardware": {
+        "cpu": "Intel Core i7-11700K",
+        "memory": "32GB",
+        "gpu": "NVIDIA RTX 3080"
+      },
+      "baseline": 50.0,
+      "improvement_percent": 9.54
+    },
+    {
+      "name": "vision_image_processing",
+      "module": "aiplatform.vision",
+      "description": "Benchmark for image processing pipeline",
+      "timestamp": "2025-12-01T11:00:00Z",
+      "results": {
+        "mean_ms": 125.67,
+        "stddev_ms": 5.43,
+        "min_ms": 115.2,
+        "max_ms": 145.8,
+        "iterations": 500,
+        "ops_per_sec": 7.95
+      },
+      "image_size": "2048x2048",
+      "baseline": 150.0,
+      "improvement_percent": 16.22
+    },
+    {
+      "name": "federated_training_round",
+      "module": "aiplatform.federated",
+      "description": "Benchmark for federated learning training round",
+      "timestamp": "2025-12-01T12:00:00Z",
+      "results": {
+        "mean_sec": 234.56,
+        "stddev_sec": 12.34,
+        "min_sec": 210.5,
+        "max_sec": 265.8,
+        "iterations": 10,
+        "throughput": 0.26
+      },
+      "clients": 10,
+      "samples_per_client": 5000,
+      "baseline": 280.0,
+      "improvement_percent": 16.23
+    },
+    {
+      "name": "model_inference",
+      "module": "aiplatform.core",
+      "description": "Benchmark for model inference latency",
+      "timestamp": "2025-12-01T13:00:00Z",
+      "results": {
+        "mean_ms": 8.45,
+        "stddev_ms": 0.34,
+        "min_ms": 7.8,
+        "max_ms": 9.2,
+        "iterations": 10000,
+        "ops_per_sec": 118.33
+      },
+      "batch_size": 1,
+      "baseline": 10.0,
+        "improvement_percent": 15.5
+    },
+    {
+      "name": "data_loading",
+      "module": "aiplatform.data",
+      "description": "Benchmark for data loading performance",
+      "timestamp": "2025-12-01T14:00:00Z",
+      "results": {
+        "mean_sec": 2.34,
+        "stddev_sec": 0.12,
+        "min_sec": 2.1,
+        "max_sec": 2.6,
+        "iterations": 100,
+        "throughput_gbps": 4.27
+      },
+      "dataset_size_gb": 10,
+      "batch_size": 256,
+      "baseline": 3.0,
+      "improvement_percent": 22.0
+    }
+  ],
+  "summary": {
+    "total_benchmarks": 5,
+    "average_improvement": 15.91,
+    "date_range": "2025-12-01",
+    "fastest_module": "model_inference",
+    "slowest_module": "federated_training_round"
+  }
+}

@@ -1,0 +1,19 @@
+#!/bin/bash
+# Pre-commit hook script
+# This runs automatically before each commit
+
+set -e
+
+echo "Running pre-commit checks..."
+
+# Check if files exist
+if [ ! -f ".pre-commit-config.yaml" ]; then
+    echo "Installing pre-commit..."
+    pip install pre-commit
+    pre-commit install
+fi
+
+# Run pre-commit
+pre-commit run --all-files
+
+echo "Pre-commit checks passed!"

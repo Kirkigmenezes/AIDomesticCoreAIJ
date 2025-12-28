@@ -1,0 +1,209 @@
+{
+  "training_configurations": [
+    {
+      "model_id": "quantum_ml_v1",
+      "name": "Quantum Machine Learning Model v1",
+      "type": "hybrid_quantum_classical",
+      "description": "Hybrid quantum-classical model for optimization problems",
+      "training_params": {
+        "learning_rate": 0.001,
+        "batch_size": 32,
+        "epochs": 100,
+        "optimizer": "Adam",
+        "loss_function": "binary_crossentropy",
+        "regularization": "l2",
+        "regularization_strength": 0.0001
+      },
+      "quantum_params": {
+        "qubits": 8,
+        "circuit_depth": 20,
+        "entanglement": "linear",
+        "rotation_blocks": 3,
+        "ansatz_type": "hardware_efficient"
+      },
+      "data_config": {
+        "dataset_id": "quantum_benchmarks_001",
+        "train_split": 0.7,
+        "val_split": 0.15,
+        "test_split": 0.15,
+        "preprocessing": "normalization",
+        "augmentation": false
+      },
+      "performance_metrics": {
+        "train_accuracy": 0.952,
+        "val_accuracy": 0.946,
+        "test_accuracy": 0.944,
+        "train_loss": 0.085,
+        "val_loss": 0.095,
+        "test_loss": 0.098,
+        "training_time_hours": 12.5,
+        "inference_time_ms": 45.3
+      },
+      "hardware_requirements": {
+        "cpu_cores": 16,
+        "memory_gb": 64,
+        "gpu": "A100",
+        "gpu_memory_gb": 40
+      }
+    },
+    {
+      "model_id": "vision_transformer_v2",
+      "name": "Vision Transformer Model v2",
+      "type": "transformer",
+      "description": "Vision Transformer for image classification",
+      "training_params": {
+        "learning_rate": 0.0001,
+        "batch_size": 128,
+        "epochs": 50,
+        "optimizer": "AdamW",
+        "loss_function": "categorical_crossentropy",
+        "warmup_epochs": 5,
+        "weight_decay": 0.0001
+      },
+      "model_architecture": {
+        "patch_size": 16,
+        "num_layers": 12,
+        "hidden_dim": 768,
+        "num_attention_heads": 12,
+        "mlp_ratio": 4,
+        "dropout": 0.1,
+        "attention_dropout": 0.0
+      },
+      "data_config": {
+        "dataset_id": "vision_datasets_001",
+        "image_size": 224,
+        "train_split": 0.8,
+        "val_split": 0.1,
+        "test_split": 0.1,
+        "augmentation": true,
+        "augmentation_strategies": ["random_crop", "random_flip", "color_jitter", "rotation"]
+      },
+      "performance_metrics": {
+        "train_top1_accuracy": 0.989,
+        "train_top5_accuracy": 0.998,
+        "val_top1_accuracy": 0.875,
+        "val_top5_accuracy": 0.965,
+        "test_top1_accuracy": 0.872,
+        "test_top5_accuracy": 0.964,
+        "training_time_hours": 48.0,
+        "inference_time_ms": 125.4
+      }
+    },
+    {
+      "model_id": "federated_mnist_v1",
+      "name": "Federated Learning MNIST Model v1",
+      "type": "federated_cnn",
+      "description": "CNN trained with federated learning on MNIST",
+      "training_params": {
+        "num_rounds": 100,
+        "clients_per_round": 50,
+        "epochs_per_client": 5,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "optimizer": "SGD"
+      },
+      "model_architecture": {
+        "conv_layers": 2,
+        "filters": [32, 64],
+        "kernel_sizes": [5, 5],
+        "pool_type": "max",
+        "pool_sizes": [2, 2],
+        "dense_layers": 2,
+        "dense_units": [128, 10],
+        "activation": "relu"
+      },
+      "federated_config": {
+        "num_clients": 100,
+        "data_distribution": "non_iid",
+        "privacy_mechanism": "differential_privacy",
+        "epsilon": 8.0,
+        "delta": 0.00001,
+        "aggregation_method": "fedavg",
+        "compression": "quantization"
+      },
+      "performance_metrics": {
+        "final_accuracy": 0.978,
+        "convergence_rounds": 75,
+        "communication_cost_mb": 2500,
+        "total_training_time_hours": 24.0,
+        "per_round_time_seconds": 145
+      }
+    },
+    {
+      "model_id": "genai_gpt2_v1",
+      "name": "Fine-tuned GPT-2 Model v1",
+      "type": "language_model",
+      "description": "GPT-2 fine-tuned on domain-specific data",
+      "training_params": {
+        "base_model": "gpt2",
+        "learning_rate": 0.00005,
+        "batch_size": 16,
+        "epochs": 3,
+        "optimizer": "AdamW",
+        "warmup_steps": 1000,
+        "weight_decay": 0.01,
+        "gradient_accumulation_steps": 4
+      },
+      "model_config": {
+        "vocab_size": 50257,
+        "max_sequence_length": 1024,
+        "num_layers": 12,
+        "hidden_size": 768,
+        "num_attention_heads": 12,
+        "intermediate_size": 3072
+      },
+      "data_config": {
+        "dataset_id": "genai_prompts_001",
+        "train_samples": 40000,
+        "val_samples": 5000,
+        "test_samples": 5000,
+        "preprocessing": "tokenization_with_bos_eos"
+      },
+      "performance_metrics": {
+        "train_loss": 1.234,
+        "val_loss": 1.567,
+        "test_loss": 1.589,
+        "perplexity": 4.89,
+        "training_time_hours": 16.0,
+        "inference_time_ms": 85.2
+      }
+    }
+  ],
+  "hyperparameter_tuning": {
+    "enabled": true,
+    "search_strategy": "bayesian_optimization",
+    "num_trials": 100,
+    "num_parallel_jobs": 8,
+    "search_space": {
+      "learning_rate": {
+        "type": "log_uniform",
+        "min": 0.00001,
+        "max": 0.1
+      },
+      "batch_size": {
+        "type": "choice",
+        "choices": [16, 32, 64, 128, 256]
+      },
+      "dropout": {
+        "type": "uniform",
+        "min": 0.0,
+        "max": 0.5
+      },
+      "weight_decay": {
+        "type": "log_uniform",
+        "min": 0.00001,
+        "max": 0.1
+      }
+    }
+  },
+  "experiment_tracking": {
+    "enabled": true,
+    "tracking_uri": "http://mlflow:5000",
+    "backend_store": "postgresql://mlflow_db",
+    "artifact_store": "s3://aiplatform-artifacts",
+    "tracked_metrics": [
+      "loss", "accuracy", "precision", "recall", "f1_score",
+      "training_time", "inference_time", "memory_usage"
+    ]
+  }
+}

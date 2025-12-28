@@ -1,0 +1,182 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aiplatform"
+version = "2.0.0"
+description = "Comprehensive AI Platform with Quantum Computing, Vision, and Federated Learning"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.9"
+keywords = [
+    "quantum",
+    "machine-learning",
+    "ai",
+    "vision",
+    "federated-learning",
+    "generative-ai"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
+authors = [
+    {name = "AI Platform Team", email = "dev@example.com"}
+]
+maintainers = [
+    {name = "AI Platform Team", email = "dev@example.com"}
+]
+
+dependencies = [
+    "numpy>=1.21.0",
+    "scipy>=1.7.0",
+    "pandas>=1.3.0",
+    "scikit-learn>=1.0.0",
+    "tensorflow>=2.10.0",
+    "torch>=1.10.0",
+    "qiskit>=0.39.0",
+    "cirq>=1.0.0",
+    "opencv-python>=4.5.0",
+    "pillow>=9.0.0",
+    "requests>=2.28.0",
+    "aiohttp>=3.8.0",
+    "pydantic>=1.10.0",
+    "pyyaml>=6.0",
+    "python-dotenv>=0.20.0",
+    "cryptography>=38.0.0",
+    "flask>=2.2.0",
+    "fastapi>=0.100.0",
+    "uvicorn>=0.20.0",
+    "sqlalchemy>=2.0.0",
+    "redis>=4.5.0",
+    "celery>=5.3.0",
+    "prometheus-client>=0.16.0",
+    "opentelemetry-api>=1.15.0",
+    "opentelemetry-sdk>=1.15.0"
+]
+
+[project.optional-dependencies]
+quantum = [
+    "qiskit[all]>=0.39.0",
+    "cirq>=1.0.0",
+    "pennylane>=0.28.0"
+]
+vision = [
+    "opencv-python>=4.5.0",
+    "pillow>=9.0.0",
+    "torchvision>=0.15.0",
+    "albumentations>=1.3.0"
+]
+federated = [
+    "flower>=1.0.0",
+    "syft>=0.8.0"
+]
+genai = [
+    "transformers>=4.30.0",
+    "langchain>=0.1.0",
+    "openai>=0.27.0"
+]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "pytest-xdist>=3.3.0",
+    "black>=23.0.0",
+    "isort>=5.12.0",
+    "flake8>=6.0.0",
+    "mypy>=1.4.0",
+    "bandit>=1.7.0",
+    "pre-commit>=3.3.0",
+    "sphinx>=7.0.0",
+    "sphinx-rtd-theme>=1.2.0",
+    "mkdocs>=1.5.0",
+    "ipython>=8.10.0",
+    "jupyter>=1.0.0"
+]
+docs = [
+    "sphinx>=7.0.0",
+    "sphinx-rtd-theme>=1.2.0",
+    "sphinx-autodoc-typehints>=1.23.0",
+    "mkdocs>=1.5.0",
+    "mkdocs-material>=9.0.0"
+]
+all = [
+    "aiplatform[quantum,vision,federated,genai,dev,docs]"
+]
+
+[project.urls]
+Homepage = "https://github.com/yourusername/AIDomesticCoreAIJ"
+Documentation = "https://aiplatform.readthedocs.io"
+Repository = "https://github.com/yourusername/AIDomesticCoreAIJ.git"
+"Bug Tracker" = "https://github.com/yourusername/AIDomesticCoreAIJ/issues"
+Changelog = "https://github.com/yourusername/AIDomesticCoreAIJ/blob/main/CHANGELOG.md"
+
+[project.scripts]
+aiplatform = "aiplatform.cli:main"
+aiplatform-quantum = "aiplatform.quantum:cli"
+aiplatform-vision = "aiplatform.vision:cli"
+aiplatform-federated = "aiplatform.federated:cli"
+
+[tool.setuptools]
+packages = ["aiplatform", "sdk"]
+
+[tool.setuptools.dynamic]
+version = {attr = "aiplatform.__version__"}
+
+[tool.black]
+line-length = 100
+target-version = ['py39', 'py310', 'py311', 'py312']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 100
+known_first_party = ["aiplatform", "sdk"]
+skip_gitignore = true
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+disallow_untyped_defs = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "--cov=aiplatform --cov=sdk --cov-report=html"
+
+[tool.coverage.run]
+branch = true
+source = ["aiplatform", "sdk"]
+omit = ["*/tests/*", "*/test_*.py"]
+
+[tool.coverage.report]
+precision = 2
+show_missing = true

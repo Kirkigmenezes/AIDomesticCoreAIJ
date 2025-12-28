@@ -1,0 +1,97 @@
+{
+  "test_cases": [
+    {
+      "test_id": "test_001",
+      "name": "Quantum Circuit Basic",
+      "category": "quantum",
+      "description": "Test basic quantum circuit execution",
+      "input": {
+        "n_qubits": 3,
+        "gates": ["H", "CNOT", "RZ"],
+        "measurements": 1000
+      },
+      "expected_output": {
+        "success": true,
+        "states": ["000", "001", "010", "011", "100", "101", "110", "111"],
+        "probabilities": [0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125]
+      },
+      "timeout_seconds": 30
+    },
+    {
+      "test_id": "test_002",
+      "name": "Vision Image Processing",
+      "category": "vision",
+      "description": "Test image processing pipeline",
+      "input": {
+        "image_path": "data/samples/test_image.jpg",
+        "operations": ["resize", "normalize", "augment"],
+        "target_size": [224, 224]
+      },
+      "expected_output": {
+        "success": true,
+        "processed_shape": [224, 224, 3],
+        "dtype": "float32"
+      },
+      "timeout_seconds": 10
+    },
+    {
+      "test_id": "test_003",
+      "name": "Federated Training",
+      "category": "federated",
+      "description": "Test federated learning round",
+      "input": {
+        "n_clients": 5,
+        "local_epochs": 3,
+        "batch_size": 32,
+        "learning_rate": 0.01
+      },
+      "expected_output": {
+        "success": true,
+        "loss_decrease": true,
+        "convergence": 0.95
+      },
+      "timeout_seconds": 60
+    },
+    {
+      "test_id": "test_004",
+      "name": "Multimodal Fusion",
+      "category": "multimodal",
+      "description": "Test multimodal data fusion",
+      "input": {
+        "modalities": ["text", "image", "audio"],
+        "fusion_method": "attention",
+        "hidden_dim": 512
+      },
+      "expected_output": {
+        "success": true,
+        "output_shape": [1, 512],
+        "fusion_weights": [0.3, 0.4, 0.3]
+      },
+      "timeout_seconds": 45
+    },
+    {
+      "test_id": "test_005",
+      "name": "GenAI Integration",
+      "category": "genai",
+      "description": "Test generative AI model",
+      "input": {
+        "prompt": "Explain quantum computing",
+        "max_tokens": 500,
+        "temperature": 0.7
+      },
+      "expected_output": {
+        "success": true,
+        "min_length": 100,
+        "max_length": 500
+      },
+      "timeout_seconds": 20
+    }
+  ],
+  "test_suites": {
+    "unit_tests": 45,
+    "integration_tests": 12,
+    "e2e_tests": 5,
+    "performance_tests": 8,
+    "security_tests": 10
+  }
+}

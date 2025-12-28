@@ -1,0 +1,58 @@
+[flake8]
+max-line-length = 100
+max-complexity = 10
+count = True
+statistics = True
+show-source = True
+
+# Error codes to always report
+select =
+    E1,
+    E2,
+    E3,
+    E4,
+    E5,
+    E7,
+    E9,
+    F,
+    W1,
+    W2,
+    W3,
+    W5,
+    W6,
+
+# Error codes to ignore
+ignore =
+    E203,
+    E402,
+    E501,
+    W503,
+    W504,
+    F401,
+
+# Exclude directories
+exclude =
+    .git,
+    __pycache__,
+    .venv,
+    venv,
+    build,
+    dist,
+    .eggs,
+    *.egg-info,
+    .tox,
+    .mypy_cache,
+    .pytest_cache,
+    node_modules
+
+# Paths to check
+paths =
+    aiplatform,
+    sdk,
+    tests,
+    examples
+
+# Per-file ignores
+per-file-ignores =
+    __init__.py:F401
+    tests/*:F401,F811
